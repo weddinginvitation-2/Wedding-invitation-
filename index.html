@@ -99,11 +99,16 @@
     height: 100svh;
     background: #1a1a1a;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  /* الفيديو مصمم بمقاس ريلز 9:16 — contain يُبقيه كاملاً داخل الحدود
+     دون قص على أي شاشة: في اللابتوب يتوسط بأشرطة جانبية داكنة */
   #wedding-video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
   #sound-btn {
     position: absolute;
