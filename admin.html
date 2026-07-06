@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة إدارة الزفاف — محمود & اسراء</title>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script src="qrcode.min.js"></script>
+<style>
+  :root {
+    --night:#12332B; --night-2:#1C4A3E; --gold:#C6A24A; --gold-light:#E9D8A6;
+    --ivory:#F7F3E8; --sand:#EFE8D8; --ink:#2E2A22; --muted:#8A8272;
+    --red:#B3453A; --green-ok:#1e8449;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Amiri',serif; background:var(--ivory); color:var(--ink); min-height:100vh; }
+
+  /* LOGIN */
+  #login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .login-card { background:#fff; border-radius:20px; padding:48px 36px; box-shadow:0 8px 40px rgba(18,51,43,.12); width:min(380px,90vw); text-align:center; border-top:4px solid var(--gold); }
+  .login-logo { font-size:44px; margin-bottom:12px; }
+  .login-title { font-family:'Aref Ruqaa',serif; font-size:28px; font-weight:700; margin-bottom:4px; }
+  .login-sub { font-size:13px; color:var(--muted); margin-bottom:28px; }
+  .login-input { width:100%; padding:13px 16px; border:1.5px solid var(--sand); border-radius:10px; font-family:'Amiri',serif; font-size:16px; text-align:center; outline:none; margin-bottom:14px; }
+  .login-input:focus { border-color:var(--gold); }
+  .login-btn { width:100%; padding:14px; background:var(--night); color:var(--gold-light); border:none; border-radius:10px; font-family:'Amiri',serif; font-size:18px; font-weight:700; cursor:pointer; }
+  .login-btn:hover { background:var(--night-2); }
+  .login-error { color:var(--red); font-size:13px; margin-top:10px; }
+
+  /* LAYOUT */
+  #app { display:none; min-height:100vh; }
+  #app.active { display:flex; }
+  .sidebar { width:230px; background:var(--night); color:#fff; display:flex; flex-direction:column; flex-shrink:0; min-height:100vh; position:sticky; top:0; }
+  .sidebar-header { padding:24px 20px 16px; border-bottom:1px solid rgba(233,216,166,.15); text-align:center; }
+  .sidebar-header h2 { font-family:'Aref Ruqaa',serif; font-size:22px; color:var(--gold-light); }
+  .sidebar-header p { font-size:11px; opacity:.6; margin-top:2px; }
+  .nav-item { padding:14px 20px; cursor:pointer; display:flex; align-items:center; gap:10px; font-size:15px; transition:background .15s; border:none; background:none; color:#fff; width:100%; text-align:right; font-family:'Amiri',serif; }
+  .nav-item:hover, .nav-item.active { background:var(--night-2); }
+  .nav-item .icon { font-size:18px; }
+  .sidebar-footer { margin-top:auto; padding:16px 20px; border-top:1px solid rgba(233,216,166,.15); font-size:12px; opacity:.5; text-align:center; }
+  .main-content { flex:1; padding:28px; overflow-y:auto; }
+
+  .page-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+  .page-title { font-family:'Aref Ruqaa',serif; font-size:30px; }
+  .page-subtitle { font-size:13px; color:var(--muted); margin-top:2px; }
+
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:28px; }
+  .stat-card { background:#fff; border-radius:14px; padding:20px 16px; text-align:center; box-shadow:0 2px 12px rgba(18,51,43,.06); border-top:3px solid var(--gold); }
+  .stat-num { font-size:32px; font-weight:700; color:var(--night); }
+  .stat-label { font-size:12px; color:var(--muted); margin-top:4px; }
+
+  .btn { padding:9px 18px; border-radius:8px; border:none; cursor:pointer; font-family:'Amiri',serif; font-size:14px; font-weight:700; transition:all .15s; }
+  .btn-green { background:var(--night); color:var(--gold-light); box-shadow:0 4px 14px rgba(18,51,43,.25); }
+  .btn-green:hover { background:var(--night-2); transform:translateY(-1px); }
+  .btn-red { background:var(--red); color:#fff; }
+  .btn-red:hover { filter:brightness(.92); }
+  .btn-gold { background:var(--gold); color:var(--night); }
+  .btn-gold:hover { filter:brightness(1.05); }
+  .btn-outline { background:transparent; color:var(--night); border:1.5px solid var(--night); }
+  .btn-outline:hover { background:var(--night); color:var(--gold-light); }
+  .btn-sm { padding:6px 12px; font-size:13px; }
+
+  .reg-banner { display:flex; align-items:center; gap:12px; background:#fff; border-radius:14px; padding:14px 18px; margin-bottom:24px; box-shadow:0 2px 12px rgba(18,51,43,.06); flex-wrap:wrap; }
+  .reg-state { font-weight:700; }
+  .reg-state.open { color:var(--green-ok); }
+  .reg-state.closed { color:var(--red); }
+
+  .table-wrap { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(18,51,43,.06); }
+  .table-toolbar { padding:16px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--sand); }
+  .search-input { flex:1; min-width:200px; padding:9px 14px; border:1.5px solid var(--sand); border-radius:8px; font-family:'Amiri',serif; font-size:14px; outline:none; text-align:right; }
+  .search-input:focus { border-color:var(--gold); }
+  .table-scroll { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th { background:var(--ivory); padding:12px 16px; font-size:13px; color:var(--muted); font-weight:400; text-align:right; white-space:nowrap; }
+  td { padding:12px 16px; font-size:14px; border-bottom:1px solid var(--sand); vertical-align:middle; }
+  tr:hover td { background:rgba(198,162,74,.06); }
+  tr:last-child td { border-bottom:none; }
+  .code-cell { font-family:monospace; letter-spacing:2px; font-size:14px; font-weight:700; color:var(--night); }
+
+  .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+  .badge-green { background:#eafaf1; color:var(--green-ok); }
+  .badge-gray { background:#f2f2f2; color:#888; }
+
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(18,51,43,.55); z-index:1000; align-items:center; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:#fff; border-radius:20px; padding:36px 28px; width:min(400px,92vw); max-height:92vh; overflow-y:auto; text-align:center; position:relative; animation:modal-in .3s ease; }
+  @keyframes modal-in { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+  .modal-close { position:absolute; top:14px; left:16px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--muted); }
+  .modal-title { font-family:'Aref Ruqaa',serif; font-size:24px; margin-bottom:4px; }
+  .modal-sub { font-size:13px; color:var(--muted); margin-bottom:16px; }
+  .modal-code { background:var(--ivory); border:1px solid var(--gold); border-radius:8px; padding:8px 20px; font-size:26px; font-weight:700; letter-spacing:4px; color:var(--night); display:inline-block; margin-bottom:16px; font-family:monospace; }
+  #modal-card-preview { display:flex; justify-content:center; margin-bottom:16px; }
+  #modal-card-preview canvas { width:min(240px,70vw); height:auto; border-radius:10px; box-shadow:0 6px 20px rgba(18,51,43,.18); }
+  #new-card-preview { display:flex; justify-content:center; margin-bottom:16px; }
+  #new-card-preview canvas { width:min(240px,70vw); height:auto; border-radius:10px; box-shadow:0 6px 20px rgba(18,51,43,.18); }
+
+  .add-form { background:#fff; border-radius:14px; padding:24px; box-shadow:0 2px 12px rgba(18,51,43,.06); margin-bottom:24px; }
+  .form-row { display:flex; gap:12px; flex-wrap:wrap; }
+  .form-row .form-group { flex:1; min-width:180px; }
+  .form-group label { display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+  .form-group input { width:100%; padding:11px 14px; border:1.5px solid var(--sand); border-radius:8px; font-family:'Amiri',serif; font-size:15px; outline:none; text-align:right; }
+  .form-group input:focus { border-color:var(--gold); }
+
+  .log-entry { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--sand); }
+  .log-entry:last-child { border-bottom:none; }
+  .log-time { font-size:12px; color:var(--muted); white-space:nowrap; }
+  .log-name { flex:1; font-size:15px; }
+
+  .page { display:none; }
+  .page.active { display:block; }
+  .empty-state { text-align:center; padding:40px; color:var(--muted); }
+  .empty-state .emoji { font-size:40px; margin-bottom:12px; }
+
+  @media(max-width:700px) {
+    .sidebar { width:100%; min-height:auto; flex-direction:row; overflow-x:auto; position:relative; }
+    .sidebar-header, .sidebar-footer { display:none; }
+    #app.active { flex-direction:column; }
+    .nav-item { padding:12px 14px; font-size:13px; white-space:nowrap; }
+    .main-content { padding:16px; }
+  }
+  @media print { .sidebar, .page-header, .btn, .table-toolbar, .reg-banner { display:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">لوحة إدارة الزفاف</div>
+    <div class="login-sub">محمود & اسراء · ٢٧ يوليو ٢٠٢٦ · قاعة فندق بوليفارد</div>
+    <input type="password" id="pwd-input" class="login-input" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">دخول</button>
+    <div class="login-error" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>✦ إدارة الزفاف</h2>
+      <p>محمود & اسراء — ٢٧ / ٧ / ٢٠٢٦</p>
+    </div>
+    <button class="nav-item active" onclick="showPage('dashboard',this)"><span class="icon">📊</span> لوحة البيانات</button>
+    <button class="nav-item" onclick="showPage('guests',this)"><span class="icon">👥</span> إدارة الضيوف</button>
+    <button class="nav-item" onclick="showPage('attendance',this)"><span class="icon">✅</span> سجل الحضور</button>
+    <button class="nav-item" onclick="showPage('add-guest',this)"><span class="icon">➕</span> إضافة ضيف</button>
+    <button class="nav-item" onclick="window.open('scanner.html','_blank')"><span class="icon">📷</span> ماسح QR</button>
+    <div class="sidebar-footer">الجلسة آمنة 🔒</div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- شريط حالة التسجيل -->
+    <div class="reg-banner">
+      <span>حالة التسجيل:</span>
+      <span class="reg-state" id="reg-state">…</span>
+      <button class="btn btn-gold btn-sm" id="reg-toggle-btn" onclick="toggleReg()" style="display:none"></button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-header">
+        <div><div class="page-title">لوحة البيانات</div><div class="page-subtitle">نظرة عامة على الحفل</div></div>
+        <button class="btn btn-outline" onclick="loadAllGuests()">🔄 تحديث</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-label">إجمالي المدعوين</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-attended">—</div><div class="stat-label">حضروا</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-pending">—</div><div class="stat-label">لم يحضروا بعد</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-pct">—</div><div class="stat-label">نسبة الحضور</div></div>
+      </div>
+      <div class="table-wrap">
+        <div style="padding:16px 20px;font-size:15px;font-weight:700;border-bottom:1px solid var(--sand)">آخر الواصلين</div>
+        <div class="table-scroll"><table><thead><tr><th>الاسم</th><th>الكود</th><th>وقت الوصول</th></tr></thead>
+        <tbody id="recent-arrivals"><tr><td colspan="3"><div class="empty-state"><div class="emoji">🕐</div>لا يوجد حضور بعد</div></td></tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- GUESTS -->
+    <div id="page-guests" class="page">
+      <div class="page-header">
+        <div><div class="page-title">إدارة الضيوف</div><div class="page-subtitle">قائمة جميع المدعوين وأكوادهم</div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline" onclick="exportCSV()">📥 تصدير CSV</button>
+          <button class="btn btn-green" onclick="loadAllGuests()">🔄 تحديث</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <input type="text" id="guest-search" class="search-input" placeholder="بحث بالاسم أو الكود..." oninput="filterGuests()">
+          <select id="filter-status" class="search-input" style="max-width:150px" onchange="filterGuests()">
+            <option value="all">الكل</option>
+            <option value="attended">حضروا</option>
+            <option value="pending">لم يحضروا</option>
+          </select>
+        </div>
+        <div class="table-scroll"><table>
+          <thead><tr><th>#</th><th>الاسم</th><th>الكود</th><th>الجوال</th><th>الحضور</th><th>إجراء</th></tr></thead>
+          <tbody id="guests-tbody"><tr><td colspan="6"><div class="empty-state"><div class="emoji">⏳</div>جاري التحميل...</div></td></tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ATTENDANCE -->
+    <div id="page-attendance" class="page">
+      <div class="page-header">
+        <div><div class="page-title">سجل الحضور</div><div class="page-subtitle">توقيت دخول كل ضيف</div></div>
+        <button class="btn btn-green" onclick="loadAllGuests()">🔄 تحديث</button>
+      </div>
+      <div class="table-wrap"><div id="attendance-list" style="padding:8px 0"><div class="empty-state"><div class="emoji">⏳</div>جاري التحميل...</div></div></div>
+    </div>
+
+    <!-- ADD GUEST -->
+    <div id="page-add-guest" class="page">
+      <div class="page-header">
+        <div><div class="page-title">إضافة ضيف</div><div class="page-subtitle">أضف ضيفاً يدوياً ويُنشأ له كود فريد من الخادم</div></div>
+      </div>
+      <div class="add-form">
+        <div class="form-row">
+          <div class="form-group"><label>الاسم الكامل *</label><input type="text" id="add-name" placeholder="اسم الضيف"></div>
+          <div class="form-group"><label>رقم الجوال</label><input type="tel" id="add-phone" placeholder="96812345678" dir="ltr"></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-green" id="add-btn" onclick="addGuestManually()">➕ إضافة وإنشاء بطاقة</button>
+          <span id="add-msg" style="font-size:13px;color:var(--muted)"></span>
+        </div>
+      </div>
+      <div id="new-guest-card" style="display:none;background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(18,51,43,.06);text-align:center;max-width:380px">
+        <div style="font-family:'Aref Ruqaa',serif;font-size:22px;margin-bottom:4px" id="new-card-name"></div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">بطاقة الدعوة</div>
+        <div id="new-card-preview"></div>
+        <div class="modal-code" id="new-card-code"></div><br>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-gold btn-sm" onclick="downloadCanvas('new-card-preview', document.getElementById('new-card-name').textContent)">⬇️ تحميل البطاقة</button>
+          <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ طباعة</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Card Modal -->
+<div class="modal-overlay" id="qr-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-guest-name"></div>
+    <div class="modal-sub">بطاقة الدعوة ورمز الدخول</div>
+    <div id="modal-card-preview"></div>
+    <div class="modal-code" id="modal-code"></div>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-gold btn-sm" onclick="downloadCanvas('modal-card-preview', document.getElementById('modal-guest-name').textContent)">⬇️ تحميل البطاقة</button>
+      <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ طباعة</button>
+      <button class="btn btn-red btn-sm" id="modal-checkin-btn"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════ CONFIG ════════════
+// ⚠️ ضع هنا نفس رابط Apps Script الموجود في index.html (ينتهي بـ /exec)
+const SCRIPT_URL = 'https://script.google.com/macros/s/ضع_معرف_السكربت_الجديد_هنا/exec';
+const ADMIN_PASSWORD = 'wedding2026'; // غيّر كلمة المرور هنا (ونفسها ADMIN_KEY في Code.gs)
+
+// إعدادات الإطار المزخرف — نفس القيم في index.html
+const FRAME = {
+  url:    'frame.png',
+  width:  1080, height: 1350,
+  qr:     { x: 290, y: 400, size: 500, pad: 26 },
+  name:   { y: 1030, size: 54, color: '#12332B' },
+  code:   { y: 1110, size: 42, color: '#C6A24A' }
+};
+
+let allGuests = [];
+let regOpen = true;
+
+// ════════════ JSONP ════════════
+function callScriptOnce(params, timeoutMs) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, timeoutMs || 30000);
+    function cleanup(){ clearTimeout(timer); try{delete window[cb];}catch(e){window[cb]=undefined;} if(script.parentNode) script.parentNode.removeChild(script); }
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    const qs = new URLSearchParams(Object.assign({}, params, {callback:cb})).toString();
+    script.src = SCRIPT_URL + '?' + qs + '&_=' + Date.now();
+    script.onerror = () => { cleanup(); reject(new Error('network')); };
+    document.head.appendChild(script);
+  });
+}
+async function callScript(params, attempts) {
+  attempts = attempts || 3; let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try { return await callScriptOnce(params, 30000); }
+    catch (e) { lastErr = e; await new Promise(r => setTimeout(r, 1500)); }
+  }
+  throw lastErr;
+}
+
+// ════════════ AUTH ════════════
+function doLogin() {
+  const pwd = document.getElementById('pwd-input').value;
+  if (pwd === ADMIN_PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').classList.add('active');
+    loadAllGuests();
+  } else {
+    document.getElementById('login-err').textContent = '❌ كلمة المرور غير صحيحة';
+  }
+}
+
+// ════════════ NAV ════════════
+function showPage(page, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ════════════ حالة التسجيل ════════════
+function renderRegState() {
+  const st = document.getElementById('reg-state');
+  const btn = document.getElementById('reg-toggle-btn');
+  st.textContent = regOpen ? '🟢 مفتوح' : '🔴 مغلق';
+  st.className = 'reg-state ' + (regOpen ? 'open' : 'closed');
+  btn.style.display = 'inline-block';
+  btn.textContent = regOpen ? 'إغلاق التسجيل' : 'فتح التسجيل';
+}
+async function toggleReg() {
+  const btn = document.getElementById('reg-toggle-btn');
+  btn.disabled = true;
+  try {
+    const res = await callScript({ action:'setreg', key:ADMIN_PASSWORD, open:String(!regOpen) });
+    if (res.status === 'success') { regOpen = res.registrationOpen; renderRegState(); }
+    else alert('⚠️ ' + (res.message || 'تعذّر تغيير الحالة'));
+  } catch(e) { alert('⚠️ تعذّر الاتصال بالخادم'); }
+  btn.disabled = false;
+}
+
+// ════════════ LOAD ════════════
+async function loadAllGuests() {
+  try {
+    const data = await callScript({ action:'getguests' });
+    allGuests = (data && data.guests) || [];
+    if (typeof data.registrationOpen === 'boolean') { regOpen = data.registrationOpen; renderRegState(); }
+    renderGuests();
+    updateStats();
+  } catch(e) {
+    document.getElementById('guests-tbody').innerHTML =
+      '<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>تعذّر الاتصال بالخادم</div></td></tr>';
+  }
+}
+
+// ════════════ RENDER ════════════
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderGuests(list) {
+  const guests = list || allGuests;
+  const tbody = document.getElementById('guests-tbody');
+  if (!guests.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">👤</div>لا يوجد ضيوف مسجلون</div></td></tr>';
+  } else {
+    tbody.innerHTML = guests.map((g,i) => `
+      <tr>
+        <td>${i+1}</td>
+        <td><strong>${esc(g.name)}</strong></td>
+        <td class="code-cell">${esc(g.code)}</td>
+        <td style="direction:ltr;text-align:right">${esc(g.phone)||'—'}</td>
+        <td><span class="badge ${g.attended?'badge-green':'badge-gray'}">${g.attended?('✅ '+(esc(g.attendTime)||'حضر')):'⏳ لم يحضر'}</span></td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-outline btn-sm" onclick="showGuestCard('${esc(g.code)}')" style="margin-left:4px">البطاقة</button>
+          ${!g.attended ? `<button class="btn btn-green btn-sm" onclick="checkInByCode('${esc(g.code)}')">دخول</button>` : ''}
+        </td>
+      </tr>`).join('');
+  }
+
+  const attended = allGuests.filter(g=>g.attended).sort((a,b)=>String(b.attendTime||'').localeCompare(String(a.attendTime||'')));
+  document.getElementById('attendance-list').innerHTML = attended.length
+    ? attended.map(g => `<div class="log-entry"><div class="log-time">${esc(g.attendTime)||'—'}</div><div class="log-name"><strong>${esc(g.name)}</strong> <span class="code-cell" style="font-size:12px">${esc(g.code)}</span></div><span class="badge badge-green">✅ حضر</span></div>`).join('')
+    : '<div class="empty-state"><div class="emoji">👋</div>لا يوجد حضور مسجل بعد</div>';
+
+  const recent = attended.slice(0,6);
+  document.getElementById('recent-arrivals').innerHTML = recent.length
+    ? recent.map(g => `<tr><td><strong>${esc(g.name)}</strong></td><td class="code-cell">${esc(g.code)}</td><td>${esc(g.attendTime)||'—'}</td></tr>`).join('')
+    : '<tr><td colspan="3"><div class="empty-state"><div class="emoji">🕐</div>لا يوجد حضور بعد</div></td></tr>';
+}
+
+function filterGuests() {
+  const q = document.getElementById('guest-search').value.toLowerCase();
+  const status = document.getElementById('filter-status').value;
+  const filtered = allGuests.filter(g => {
+    const mq = !q || String(g.name).toLowerCase().includes(q) || String(g.code).toLowerCase().includes(q);
+    const ms = status==='all' || (status==='attended'&&g.attended) || (status==='pending'&&!g.attended);
+    return mq && ms;
+  });
+  renderGuests(filtered);
+}
+
+function updateStats() {
+  const total = allGuests.length;
+  const attended = allGuests.filter(g=>g.attended).length;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-attended').textContent = attended;
+  document.getElementById('stat-pending').textContent = total-attended;
+  document.getElementById('stat-pct').textContent = (total?Math.round(attended/total*100):0)+'%';
+}
+
+// ════════════ البطاقة المؤطّرة (QR داخل الإطار) ════════════
+function makeQrCanvas(text, size) {
+  const holder = document.createElement('div');
+  holder.style.cssText = 'position:fixed;left:-9999px;top:0';
+  document.body.appendChild(holder);
+  new QRCode(holder, { text:text, width:size, height:size,
+    colorDark:'#12332B', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H });
+  const cv = holder.querySelector('canvas');
+  const out = document.createElement('canvas');
+  out.width = size; out.height = size;
+  out.getContext('2d').drawImage(cv, 0, 0, size, size);
+  holder.remove();
+  return out;
+}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+
+async function buildCard(name, code, targetId) {
+  const qrCv = makeQrCanvas('WEDDING:' + code + ':' + name, FRAME.qr.size);
+  const canvas = document.createElement('canvas');
+  canvas.width = FRAME.width; canvas.height = FRAME.height;
+  const ctx = canvas.getContext('2d');
+  try { await document.fonts.ready; } catch(e){}
+
+  const drawTexts = () => {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = FRAME.name.color;
+    ctx.font = '700 ' + FRAME.name.size + 'px "Aref Ruqaa", "Amiri", serif';
+    ctx.fillText(name, FRAME.width/2, FRAME.name.y);
+    ctx.fillStyle = FRAME.code.color;
+    ctx.font = '700 ' + FRAME.code.size + 'px monospace';
+    ctx.fillText(code, FRAME.width/2, FRAME.code.y);
+  };
+  const drawQr = () => {
+    const q = FRAME.qr, p = q.pad;
+    roundRect(ctx, q.x-p, q.y-p, q.size+p*2, q.size+p*2, 20);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.drawImage(qrCv, q.x, q.y, q.size, q.size);
+  };
+  const show = () => {
+    const t = document.getElementById(targetId);
+    t.innerHTML = ''; t.appendChild(canvas);
+  };
+
+  const frameImg = new Image();
+  frameImg.onload = () => { ctx.drawImage(frameImg,0,0,FRAME.width,FRAME.height); drawQr(); drawTexts(); show(); };
+  frameImg.onerror = () => {
+    ctx.fillStyle = '#F7F3E8'; ctx.fillRect(0,0,FRAME.width,FRAME.height);
+    ctx.strokeStyle = '#C6A24A'; ctx.lineWidth = 10; ctx.strokeRect(40,40,FRAME.width-80,FRAME.height-80);
+    ctx.lineWidth = 2; ctx.strokeRect(60,60,FRAME.width-120,FRAME.height-120);
+    ctx.textAlign = 'center'; ctx.fillStyle = '#12332B';
+    ctx.font = '700 64px "Aref Ruqaa", serif';
+    ctx.fillText('حفل زفاف محمود & اسراء', FRAME.width/2, 200);
+    ctx.fillStyle = '#8A8272'; ctx.font = '32px "Amiri", serif';
+    ctx.fillText('الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق بوليفارد', FRAME.width/2, 270);
+    drawQr(); drawTexts(); show();
+  };
+  frameImg.src = FRAME.url + '?v=' + Date.now();
+}
+
+function downloadCanvas(containerId, name) {
+  const cv = document.getElementById(containerId).querySelector('canvas');
+  if (!cv) return;
+  const a = document.createElement('a');
+  a.href = cv.toDataURL('image/png');
+  a.download = 'دعوة-زفاف-' + String(name||'ضيف').trim().replace(/\s+/g,'-') + '.png';
+  a.click();
+}
+
+// ════════════ CARD MODAL ════════════
+function showGuestCard(code) {
+  const g = allGuests.find(x => String(x.code)===String(code));
+  if (!g) return;
+  document.getElementById('modal-guest-name').textContent = g.name;
+  document.getElementById('modal-code').textContent = g.code;
+  document.getElementById('modal-card-preview').innerHTML = '<div class="empty-state">⏳</div>';
+  buildCard(g.name, g.code, 'modal-card-preview');
+  const btn = document.getElementById('modal-checkin-btn');
+  if (g.attended) { btn.textContent='✅ حضر مسبقاً'; btn.disabled=true; btn.onclick=null; }
+  else { btn.textContent='✅ تسجيل الحضور'; btn.disabled=false; btn.onclick=()=>{ checkInByCode(g.code); closeModal(); }; }
+  document.getElementById('qr-modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('qr-modal').classList.remove('open'); }
+
+// ════════════ CHECK-IN ════════════
+async function checkInByCode(code) {
+  try {
+    const res = await callScript({ action:'checkin', code:code });
+    if (res.status==='success') {
+      const g = allGuests.find(x=>String(x.code)===String(code));
+      if (g){ g.attended=true; g.attendTime=res.time; }
+      renderGuests(); updateStats();
+      alert('✅ تم تسجيل حضور '+(res.name||code));
+    } else if (res.status==='duplicate') {
+      alert('⚠️ '+(res.name||code)+' سجّل دخوله مسبقاً ('+(res.attendTime||'')+')');
+      loadAllGuests();
+    } else {
+      alert('❌ '+(res.message||'الكود غير موجود'));
+    }
+  } catch(e) { alert('⚠️ تعذّر الاتصال بالخادم'); }
+}
+
+// ════════════ ADD GUEST ════════════
+async function addGuestManually() {
+  const name = document.getElementById('add-name').value.trim();
+  const phone = document.getElementById('add-phone').value.trim();
+  const msgEl = document.getElementById('add-msg');
+  const btn = document.getElementById('add-btn');
+  if (!name) { msgEl.textContent='⚠️ الرجاء إدخال الاسم'; return; }
+  btn.disabled=true; msgEl.textContent='جاري الإضافة...';
+  try {
+    const res = await callScript({ action:'rsvp', name:name, phone:phone });
+    if (res.status==='success' || res.status==='exists') {
+      const code = res.code;
+      document.getElementById('new-card-name').textContent = res.name || name;
+      document.getElementById('new-card-code').textContent = code;
+      buildCard(res.name || name, code, 'new-card-preview');
+      document.getElementById('new-guest-card').style.display='block';
+      msgEl.textContent = res.status==='exists' ? ('ℹ️ مسجّل مسبقاً — كوده: '+code) : ('✅ تمت إضافة '+(res.name||name));
+      document.getElementById('add-name').value=''; document.getElementById('add-phone').value='';
+      loadAllGuests();
+    } else if (res.status==='closed') {
+      msgEl.textContent = '⚠️ التسجيل مغلق — افتحه من الشريط بالأعلى ثم أعد المحاولة';
+    } else {
+      msgEl.textContent = '⚠️ '+(res.message||'خطأ');
+    }
+  } catch(e) { msgEl.textContent='⚠️ تعذّر الاتصال بالخادم'; }
+  btn.disabled=false;
+}
+
+// ════════════ EXPORT CSV ════════════
+function exportCSV() {
+  const rows = [['الاسم','الكود','الجوال','تاريخ التسجيل','حضر','وقت الحضور']];
+  allGuests.forEach(g => rows.push([g.name, g.code, g.phone, g.regTime, g.attended?'نعم':'لا', g.attendTime||'']));
+  const csv = rows.map(r => r.map(c => '"'+String(c==null?'':c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='wedding_guests_mahmoud_israa.csv'; a.click();
+}
+
+document.getElementById('qr-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+</script>
+</body>
+</html>
