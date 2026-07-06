@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>دعوة زفاف محمود & اسراء — ٢٧ يوليو ٢٠٢٦</title>
+
+<!-- معاينة الرابط عند المشاركة في واتساب وغيره -->
+<meta property="og:title" content="دعوة زفاف محمود & اسراء 💍">
+<meta property="og:description" content="يوم الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق بوليفارد · اضغط لفتح الدعوة وتأكيد حضورك">
+<meta property="og:image" content="envelope.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#12332B">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&display=swap" rel="stylesheet">
 <script src="qrcode.min.js"></script>
 <style>
   :root {
@@ -19,7 +28,7 @@
     --muted:      #8A8272;
     --red:        #B3453A;
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html { scroll-behavior:smooth; }
   body { font-family:'Amiri',serif; background:var(--ivory); color:var(--ink); overflow-x:hidden; }
 
@@ -280,7 +289,7 @@
 
 <!-- ═════════ VIDEO SECTION ═════════ -->
 <section id="video-section">
-  <video id="wedding-video" muted loop playsinline preload="auto"></video>
+  <video id="wedding-video" muted loop playsinline webkit-playsinline preload="auto"></video>
   <button id="sound-btn" onclick="toggleSound()"><span id="sound-icon">🔇</span> تشغيل الصوت</button>
   <div class="scroll-down-hint">
     مرر للأسفل
@@ -608,13 +617,13 @@ setInterval(tick, 1000); tick();
 /* ════════════ تشغيل ════════════ */
 document.body.classList.add('locked'); // منع التمرير حتى فتح الظرف
 
-window.addEventListener('load', () => {
-  document.getElementById('loading').classList.add('hidden');
-  checkStatus();
-});
+function hideLoading(){ document.getElementById('loading').classList.add('hidden'); }
+window.addEventListener('load', () => { hideLoading(); checkStatus(); });
+setTimeout(hideLoading, 6000); // مهلة قصوى: لا تعلق شاشة التحميل حتى لو تأخرت الملفات
 
 // إذا لم تُرفع صورة الظرف بعد → يظهر ظرف احتياطي أنيق بنفس الهوية
 const envImg = document.getElementById('envelope-img');
+envImg.draggable = false;
 envImg.addEventListener('error', () => {
   envImg.style.display = 'none';
   document.getElementById('envelope-fallback').style.display = 'block';
@@ -629,6 +638,8 @@ wv.addEventListener('error', () => {
 });
 wv.src = VIDEO_URL;
 
+// إرسال النموذج بزر Enter من أي حقل
+document.getElementById('name').addEventListener('keydown', e => { if (e.key === 'Enter') submitRsvp(); });
 document.getElementById('phone').addEventListener('keydown', e => { if (e.key === 'Enter') submitRsvp(); });
 </script>
 </body>
