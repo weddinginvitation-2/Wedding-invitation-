@@ -3,94 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>دعوة زفاف محمود & اسراء — ٢٧ يوليو ٢٠٢٦</title>
+<title>دعوة زفاف محمود وإسراء</title>
 
 <!-- معاينة الرابط عند المشاركة في واتساب وغيره -->
-<meta property="og:title" content="دعوة زفاف محمود & اسراء 💍">
-<meta property="og:description" content="يوم الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق بوليفارد · اضغط لفتح الدعوة وتأكيد حضورك">
+<meta property="og:title" content="دعوة زفاف محمود & إسراء 💍">
+<meta property="og:description" content="يوم الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق البوليڤارد · اضغط لفتح الدعوة وتأكيد حضورك">
 <meta property="og:image" content="envelope.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#12332B">
+<meta name="theme-color" content="#6E1423">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Amiri+Quran&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@700;800&display=swap" rel="stylesheet">
 <script src="qrcode.min.js"></script>
 <style>
+  * { font-synthesis: weight style; }
   :root {
-    --night:      #12332B;   /* أخضر ليلي */
-    --night-2:    #1C4A3E;
-    --gold:       #C6A24A;   /* ذهبي */
-    --gold-light: #E9D8A6;
-    --ivory:      #F7F3E8;
-    --sand:       #EFE8D8;
-    --ink:        #2E2A22;
-    --muted:      #8A8272;
-    --red:        #B3453A;
+    --cream: #FAF6FD;        /* بنفسجي فاتح جداً (خلفية) */
+    --ivory: #EFE7F7;        /* بنفسجي فاتح (أقسام وحدود) */
+    --green: #C7431F;        /* برتقالي قرمزي (أساسي) */
+    --green-dark: #6E1423;   /* أحمر قاتم */
+    --green-light: #E05A2B;  /* قرمزي فاتح */
+    --charcoal: #3A2433;     /* حبر بنفسجي داكن */
+    --warm-gray: #8E7A92;    /* رمادي بنفسجي */
+    --gold: #E05A2B;
   }
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html { scroll-behavior:smooth; }
-  body { font-family:'Amiri',serif; background:var(--ivory); color:var(--ink); overflow-x:hidden; }
 
-  /* ═════════ تحميل ═════════ */
-  #loading { position:fixed; inset:0; background:var(--night); z-index:999; display:flex; align-items:center; justify-content:center; transition:opacity .6s; }
-  #loading.hidden { opacity:0; pointer-events:none; }
-  .loader-ring { width:52px; height:52px; border:3px solid rgba(233,216,166,.2); border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  body.locked { overflow:hidden; height:100vh; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-  /* ═════════ ظرف الدعوة (الغلاف الأول) ═════════ */
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-weight: 700;
+    font-family: 'Amiri Quran','Amiri',serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+  body.locked { overflow: hidden; height: 100vh; }
+
+  /* ════════ COVER PAGE ════════ */
   #cover {
-    position:fixed; inset:0; z-index:100;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--night);
-    transition:opacity .8s ease, transform .8s ease;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ivory);
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
-  #cover.fade-out { opacity:0; transform:scale(1.05); pointer-events:none; }
-  #cover.hidden { display:none; }
-  .envelope-wrapper { position:relative; width:min(480px,92vw); max-height:100vh; display:flex; align-items:center; justify-content:center; }
-  #envelope-img { width:100%; height:auto; max-height:100vh; object-fit:contain; border-radius:6px; box-shadow:0 14px 50px rgba(0,0,0,.45); }
-  /* ظرف احتياطي إذا لم تُرفع صورة envelope.jpg بعد */
-  .envelope-fallback { display:none; width:100%; background:var(--ivory); border:2px solid var(--gold); border-radius:14px; padding:74px 26px 100px; text-align:center; box-shadow:0 14px 50px rgba(0,0,0,.45); }
-  .envelope-fallback .ef-dua { font-style:italic; font-size:15px; color:var(--night); line-height:2; margin-bottom:18px; }
-  .envelope-fallback .ef-names { font-family:'Aref Ruqaa',serif; font-size:36px; font-weight:700; color:var(--night); }
-  .envelope-fallback .ef-sub { font-size:13px; color:var(--muted); margin-top:10px; }
+  #cover.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+  #cover.hidden { display: none; }
 
-  /* زر الختم المخفي فوق الظرف */
-  /* موضع الختم مقاس بدقة على صورة envelope.jpg (مركزه 55% من الارتفاع، عرضه 28%) */
+  .envelope-wrapper {
+    position: relative;
+    width: min(480px, 92vw);
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #envelope-img {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  }
+  /* ظرف احتياطي إذا لم تُرفع صورة envelope.jpg */
+  .envelope-fallback {
+    display: none; width: 100%;
+    background: var(--cream); border: 2px solid var(--green);
+    border-radius: 14px; padding: 74px 26px 100px; text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  }
+  .envelope-fallback .ef-dua { font-style: italic; font-size: 15px; color: var(--green-dark); line-height: 2; margin-bottom: 18px; }
+  .envelope-fallback .ef-names { font-family: 'Aref Ruqaa',serif; font-size: 36px; font-weight: 700; color: var(--charcoal); }
+  .envelope-fallback .ef-sub { font-size: 13px; color: var(--warm-gray); margin-top: 10px; }
+
+  /* Wax seal click zone — overlay on the seal circle in image */
   #seal-btn {
-    position:absolute; top:55%; left:50%; transform:translate(-50%,-50%);
-    width:28%; aspect-ratio:1; border-radius:50%;
-    background:transparent; border:none; cursor:pointer; z-index:10; outline:none;
+    position: absolute;
+    /* مضبوط على ختم صورة envelope.jpg: المركز 55% والعرض 28% */
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    outline: none;
   }
   #seal-btn::before {
-    content:''; position:absolute; inset:-6px; border-radius:50%;
-    border:2px solid rgba(198,162,74,0);
-    animation:seal-pulse 2.5s ease-in-out infinite;
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(199,67,31, 0);
+    animation: seal-pulse 2.5s ease-in-out infinite;
   }
   @keyframes seal-pulse {
-    0%,100% { border-color:rgba(198,162,74,0); transform:scale(1); }
-    50%     { border-color:rgba(198,162,74,.6); transform:scale(1.08); }
+    0%, 100% { border-color: rgba(199,67,31,0); transform: scale(1); }
+    50% { border-color: rgba(199,67,31,0.5); transform: scale(1.08); }
   }
-  /* عند غياب الصورة: يظهر الختم كدائرة ذهبية أسفل الظرف الاحتياطي */
-  .envelope-wrapper.no-img #seal-btn { top:auto; bottom:26px; transform:translateX(-50%); width:64px; background:var(--gold); box-shadow:0 4px 16px rgba(198,162,74,.5); }
-  .envelope-wrapper.no-img #seal-btn::after { content:'✉'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--night); font-size:26px; }
+  .envelope-wrapper.no-img #seal-btn { top: auto; bottom: 26px; transform: translateX(-50%); width: 64px; background: var(--green); box-shadow: 0 4px 16px rgba(199,67,31,.5); }
+  .envelope-wrapper.no-img #seal-btn::after { content: '✉'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26px; }
 
-  .ripple { position:absolute; border-radius:50%; background:rgba(198,162,74,.35); animation:ripple-out .7s ease-out forwards; pointer-events:none; z-index:20; }
-  @keyframes ripple-out { 0%{transform:scale(0);opacity:1} 100%{transform:scale(4);opacity:0} }
+  /* Ripple on click */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(199,67,31, 0.35);
+    animation: ripple-out 0.7s ease-out forwards;
+    pointer-events: none;
+    z-index: 20;
+  }
+  @keyframes ripple-out {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  /* Hint text */
   .hint-text {
-    position:absolute; bottom:-36px; left:50%; transform:translateX(-50%);
-    font-size:13px; color:var(--gold-light); white-space:nowrap;
-    animation:float-hint 3s ease-in-out infinite;
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 13px;
+    color: var(--warm-gray);
+    white-space: nowrap;
+    animation: float-hint 3s ease-in-out infinite;
   }
   @keyframes float-hint {
-    0%,100% { opacity:.6; transform:translateX(-50%) translateY(0); }
-    50%     { opacity:1; transform:translateX(-50%) translateY(-3px); }
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(-3px); }
   }
 
-  /* ═════════ الصفحة الرئيسية (مخفية حتى فتح الظرف) ═════════ */
-  #main-page { opacity:0; transition:opacity .6s ease .4s; }
-  #main-page.visible { opacity:1; }
+  /* ════════ MAIN PAGE (hidden until cover removed) ════════ */
+  #main-page {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.4s;
+  }
+  #main-page.visible { opacity: 1; }
 
   /* ════════ VIDEO SECTION ════════ */
   #video-section {
@@ -103,8 +167,7 @@
     align-items: center;
     justify-content: center;
   }
-  /* الفيديو مصمم بمقاس ريلز 9:16 — contain يُبقيه كاملاً داخل الحدود
-     دون قص على أي شاشة: في اللابتوب يتوسط بأشرطة جانبية داكنة */
+  /* الفيديو بمقاس ريلز 9:16 — contain يُبقيه كاملاً دون قص على أي شاشة */
   #wedding-video {
     width: 100%;
     height: 100%;
@@ -150,149 +213,423 @@
     50% { transform: translateX(50%) translateY(6px); }
   }
 
-  @keyframes rise { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:translateY(0)} }
-  @media (prefers-reduced-motion: reduce) { *{animation:none !important; transition:none !important;} }
-
-  /* ═════════ التفاصيل ═════════ */
-  #details { padding:64px 24px 48px; text-align:center; }
-  .section-ornament { color:var(--gold); font-size:20px; letter-spacing:6px; margin-bottom:8px; }
-  .section-title { font-family:'Aref Ruqaa',serif; font-weight:700; font-size:clamp(28px,6vw,42px); margin-bottom:32px; }
-
+  /* ════════ DETAILS SECTION ════════ */
+  #details {
+    background: var(--cream);
+    padding: 70px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #details::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--green));
+  }
+  .section-ornament {
+    color: var(--green);
+    font-size: 22px;
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+    opacity: 0.7;
+  }
+  .section-title {
+    font-family: 'Aref Ruqaa',serif;
+    font-size: clamp(30px, 6.5vw, 48px);
+    font-style: normal;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 40px;
+    line-height: 1.3;
+  }
   .details-card {
-    max-width:480px; margin:0 auto; background:#fff; border-radius:18px;
-    padding:28px 24px; box-shadow:0 6px 28px rgba(18,51,43,.08);
-    border:1px solid rgba(198,162,74,.25);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    background: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    border: 1px solid rgba(199,67,31,0.12);
   }
-  .detail-row { display:flex; align-items:center; gap:14px; padding:16px 0; border-bottom:1px solid var(--sand); text-align:right; }
-  .detail-row:first-child { padding-top:0; }
-  .detail-row:last-child { border-bottom:none; padding-bottom:0; }
+  .detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ivory);
+  }
+  .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .detail-row:first-child { padding-top: 0; }
   .detail-icon {
-    width:44px; height:44px; border-radius:50%; flex-shrink:0;
-    background:rgba(198,162,74,.14); color:var(--night);
-    display:flex; align-items:center; justify-content:center; font-size:19px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(199,67,31,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    font-size: 18px;
+    flex-shrink: 0;
   }
-  .detail-label { font-size:12px; color:var(--muted); margin-bottom:3px; }
-  .detail-value { font-size:17px; font-weight:700; line-height:1.5; }
-
+  .detail-text { text-align: right; }
+  .detail-label {
+    font-size: 12px;
+    color: var(--warm-gray);
+    margin-bottom: 3px;
+  }
+  .detail-value {
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 17px;
+    color: var(--charcoal);
+    font-weight: 700;
+    line-height: 1.4;
+  }
   .map-btn {
-    display:inline-flex; align-items:center; gap:8px; margin-top:20px;
-    background:var(--night); color:var(--gold-light); padding:13px 30px;
-    border-radius:30px; text-decoration:none; font-size:16px; font-weight:700;
-    box-shadow:0 6px 18px rgba(18,51,43,.3); transition:transform .15s, background .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    background: var(--green);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(199,67,31,0.3);
   }
-  .map-btn:hover { background:var(--night-2); transform:translateY(-2px); }
+  .map-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
 
-  /* تنبيهات */
-  .notes { max-width:480px; margin:22px auto 0; display:flex; flex-direction:column; gap:10px; }
+  /* تنبيهات الحضور */
+  .notes { max-width: 480px; margin: 26px auto 0; display: flex; flex-direction: column; gap: 10px; }
   .note {
-    display:flex; align-items:center; gap:12px; text-align:right;
-    background:var(--sand); border:1px dashed var(--gold);
-    border-radius:12px; padding:13px 16px; font-size:14.5px; line-height:1.7;
+    display: flex; align-items: center; gap: 12px; text-align: right;
+    background: white; border: 1px dashed var(--green);
+    border-radius: 12px; padding: 13px 16px; font-size: 14.5px; line-height: 1.7;
+    color: var(--charcoal);
   }
-  .note .n-icon { font-size:20px; flex-shrink:0; }
-  .note em { font-style:italic; color:var(--night); }
+  .note .n-icon { font-size: 20px; flex-shrink: 0; }
+  .note em { font-style: italic; color: var(--green-dark); }
 
-  /* ═════════ العد التنازلي ═════════ */
+  /* ════════ COUNTDOWN ════════ */
   .countdown-wrap {
-    max-width:460px; margin:40px auto 0;
-    background:linear-gradient(150deg, var(--night) 0%, var(--night-2) 100%);
-    border:1px solid rgba(198,162,74,.4);
-    border-radius:22px; padding:26px 22px 24px; color:#fff;
-    box-shadow:0 12px 32px rgba(18,51,43,.28);
+    max-width: 460px;
+    margin: 28px auto 4px;
+    background: linear-gradient(140deg, var(--green) 0%, var(--green-dark) 100%);
+    border-radius: 22px;
+    padding: 26px 22px 24px;
+    box-shadow: 0 10px 30px rgba(199,67,31,0.28);
+    position: relative;
+    overflow: hidden;
   }
-  .countdown-label { font-family:'Aref Ruqaa',serif; font-size:19px; margin-bottom:18px; color:var(--gold-light); }
-  .countdown-grid { display:flex; justify-content:center; gap:6px; }
+  .countdown-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.12), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(255,255,255,0.08), transparent 45%);
+    pointer-events: none;
+  }
+  .countdown-label {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-family: 'Aref Ruqaa','Amiri',serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    opacity: 0.97;
+  }
+  .countdown-grid {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
   .cd-cell {
-    display:flex; flex-direction:column; align-items:center;
-    background:rgba(233,216,166,.1); border:1px solid rgba(198,162,74,.35);
-    border-radius:14px; padding:12px 6px 9px; min-width:62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 14px;
+    padding: 12px 6px 9px;
+    min-width: 62px;
+    backdrop-filter: blur(2px);
   }
-  .cd-num { font-size:30px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; color:var(--gold-light); }
-  .cd-unit { margin-top:6px; font-size:12.5px; color:rgba(247,243,232,.8); }
-  .cd-sep { color:rgba(198,162,74,.6); font-size:24px; align-self:flex-start; margin-top:14px; }
-  .countdown-done { font-family:'Aref Ruqaa',serif; font-size:22px; padding:6px 0; color:var(--gold-light); }
-  @media (max-width:380px){ .cd-cell{min-width:54px} .cd-num{font-size:25px} }
+  .cd-num {
+    font-family: 'Cairo','Segoe UI',sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-unit {
+    margin-top: 6px;
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 12.5px;
+    color: var(--cream);
+    opacity: 0.9;
+  }
+  .cd-sep {
+    color: rgba(255,255,255,0.55);
+    font-size: 24px;
+    font-weight: 700;
+    align-self: flex-start;
+    margin-top: 16px;
+  }
+  .countdown-done {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-family: 'Aref Ruqaa','Amiri',serif;
+    font-size: 22px;
+    padding: 8px 0 4px;
+  }
+  .calendar-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto 0;
+    width: 100%;
+    justify-content: center;
+    background: rgba(255,255,255,0.95);
+    color: var(--green-dark);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .calendar-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+  .calendar-btn:active { transform: translateY(0); }
+  @media (max-width: 380px) {
+    .cd-cell { min-width: 54px; padding: 10px 4px 8px; }
+    .cd-num { font-size: 25px; }
+    .cd-unit { font-size: 11px; }
+    .cd-sep { font-size: 20px; margin-top: 14px; }
+  }
 
-  /* ═════════ التسجيل ═════════ */
-  #rsvp { background:var(--sand); padding:64px 24px 80px; text-align:center; }
-  .rsvp-box { max-width:460px; margin:0 auto; }
-  .rsvp-sub { font-size:14px; color:var(--muted); margin-bottom:30px; line-height:1.8; }
-  .form-group { margin-bottom:16px; text-align:right; }
-  .form-group label { display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+  /* ════════ RSVP SECTION ════════ */
+  #rsvp {
+    background: var(--ivory);
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative;
+  }
+  .rsvp-box {
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .rsvp-title {
+    font-family: 'Aref Ruqaa',serif;
+    font-size: clamp(26px, 5.5vw, 42px);
+    font-style: normal;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .rsvp-subtitle {
+    font-size: 14px;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+  }
+  .form-group {
+    margin-bottom: 16px;
+    text-align: right;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-bottom: 6px;
+  }
   .form-group input {
-    width:100%; padding:13px 16px; border:1.5px solid #E2DAC6; border-radius:10px;
-    background:#fff; font-family:'Amiri',serif; font-size:16px; outline:none;
-    transition:border-color .2s; text-align:right;
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--ivory);
+    border-radius: 10px;
+    background: white;
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 16px;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: right;
   }
-  .form-group input:focus { border-color:var(--gold); }
+  .form-group input:focus { border-color: var(--green); }
   .submit-btn {
-    width:100%; padding:15px; background:var(--night); color:var(--gold-light);
-    border:none; border-radius:12px; font-family:'Amiri',serif; font-size:18px;
-    font-weight:700; cursor:pointer; margin-top:6px;
-    box-shadow:0 6px 20px rgba(18,51,43,.3); transition:background .2s, transform .1s;
+    width: 100%;
+    padding: 15px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+    box-shadow: 0 4px 20px rgba(199,67,31,0.3);
   }
-  .submit-btn:hover { background:var(--night-2); }
-  .submit-btn:active { transform:scale(.98); }
-  .submit-btn:disabled { background:var(--muted); cursor:not-allowed; }
-  .msg { padding:12px 16px; border-radius:10px; margin-top:14px; font-size:14px; }
-  .msg-error { background:#FBEAE7; color:var(--red); border:1px solid #EFC7C1; }
-  .msg-closed { background:#fff; color:var(--ink); border:1px dashed var(--gold); line-height:1.9; }
+  .submit-btn:hover { background: var(--green-dark); }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { background: var(--warm-gray); cursor: not-allowed; }
 
-  /* بطاقة النجاح + البطاقة المؤطّرة */
-  #success-card {
-    display:none; margin-top:26px; background:#fff; border-radius:18px;
-    padding:28px 20px; box-shadow:0 6px 28px rgba(18,51,43,.1);
-    border:1px solid rgba(198,162,74,.3);
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  #success-card.show { display:block; animation:rise .4s ease; }
-  .success-title { font-family:'Aref Ruqaa',serif; font-size:24px; font-weight:700; color:var(--night); margin-bottom:4px; }
-  .success-sub { font-size:13.5px; color:var(--muted); margin-bottom:18px; line-height:1.8; }
-  #card-preview { display:flex; justify-content:center; margin-bottom:16px; }
+
+  /* Error / success messages */
+  .msg { padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px; }
+  .msg-error { background: #ffeaea; color: #c0392b; border: 1px solid #f5c6c6; }
+  .msg-success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+  .msg-closed { background: #fff; color: var(--charcoal); border: 1px dashed var(--green); line-height: 1.9; }
+
+  /* Success card */
+  #success-card {
+    display: none;
+    margin-top: 24px;
+    background: white;
+    border-radius: 16px;
+    padding: 28px 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    text-align: center;
+    border: 1px solid rgba(199,67,31,0.15);
+  }
+  #success-card.show { display: block; animation: slide-up 0.4s ease; }
+  .success-icon { font-size: 52px; margin-bottom: 12px; }
+  .success-title {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+  }
+  .success-sub { font-size: 14px; color: var(--warm-gray); line-height: 1.7; }
+  .qr-welcome {
+    font-family: 'Amiri Quran','Amiri',serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--charcoal);
+    margin: 14px 0 4px;
+  }
+  .qr-code-label {
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-bottom: 16px;
+  }
+  #card-preview { display: flex; justify-content: center; margin-bottom: 14px; }
   #card-preview canvas {
-    width:min(300px,80vw); height:auto; border-radius:12px;
-    box-shadow:0 8px 24px rgba(18,51,43,.18);
+    width: min(290px, 78vw); height: auto; border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(110,20,35,.18);
   }
   .code-pill {
-    display:inline-block; background:var(--ivory); border:1px solid var(--gold);
-    border-radius:8px; padding:6px 20px; font-family:monospace; font-size:24px;
-    letter-spacing:4px; font-weight:700; color:var(--night); margin-bottom:16px;
+    display: inline-block; background: var(--cream); border: 1px solid var(--green);
+    border-radius: 8px; padding: 6px 20px; font-family: monospace; font-size: 24px;
+    letter-spacing: 4px; font-weight: 700; color: var(--green-dark); margin-bottom: 14px;
   }
   .dl-btn {
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--gold); color:var(--night); border:none; cursor:pointer;
-    padding:13px 30px; border-radius:30px; font-family:'Amiri',serif;
-    font-size:16px; font-weight:700; box-shadow:0 6px 16px rgba(198,162,74,.4);
-    transition:transform .15s;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #fff; border: none; cursor: pointer;
+    padding: 12px 28px; border-radius: 30px;
+    font-family: 'Amiri Quran','Amiri',serif; font-size: 15.5px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(199,67,31,.35);
+    transition: background 0.2s, transform 0.15s;
   }
-  .dl-btn:hover { transform:translateY(-2px); }
+  .dl-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
+  .success-summary {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 16px 0 0;
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--charcoal);
+  }
 
-  footer { background:var(--night); color:rgba(247,243,232,.75); text-align:center; padding:28px 24px; font-size:15px; line-height:2; }
-  footer .f-line { font-family:'Aref Ruqaa',serif; font-size:18px; color:var(--gold-light); }
+  /* ════════ FOOTER ════════ */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+  }
+  footer span { color: var(--green-light); }
+
+  /* ════════ LOADING OVERLAY ════════ */
+  #loading {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+  }
+  #loading.hidden { opacity: 0; pointer-events: none; }
+  .loader-ring {
+    width: 50px; height: 50px;
+    border: 3px solid var(--ivory);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    #details { padding: 50px 16px 50px; }
+    #rsvp { padding: 50px 16px 60px; }
+  }
 </style>
 </head>
 <body>
 
+<!-- Loading -->
 <div id="loading"><div class="loader-ring"></div></div>
 
-<!-- ═════════ ظرف الدعوة ═════════ -->
+<!-- ══════════════ COVER PAGE ══════════════ -->
 <div id="cover">
   <div class="envelope-wrapper" id="envelope-wrapper">
-    <!-- ⚠️ ارفع صورة الظرف/الرسالة باسم envelope.jpg في نفس مجلد GitHub -->
-    <img id="envelope-img" src="envelope.jpg" alt="دعوة زفاف محمود واسراء">
+    <!-- ⚠️ صورة الظرف تُرفع في GitHub باسم envelope.jpg (المسار الثاني) -->
+    <img id="envelope-img" src="envelope.jpg" alt="دعوة زفاف محمود وإسراء">
     <div class="envelope-fallback" id="envelope-fallback">
       <div class="ef-dua">﴿ بَارَكَ اللَّهُ لَهُمَا وَبَارَكَ عَلَيْهِمَا وَجَمَعَ بَيْنَهُمَا فِي خَيْرٍ ﴾</div>
-      <div class="ef-names">محمود & اسراء</div>
-      <div class="ef-sub">الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق بوليفارد</div>
+      <div class="ef-names">محمود & إسراء</div>
+      <div class="ef-sub">الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق البوليڤارد</div>
     </div>
     <button id="seal-btn" onclick="openInvitation(event)" aria-label="افتح الدعوة"></button>
     <div class="hint-text">اضغط على الختم لفتح الدعوة ✨</div>
   </div>
 </div>
 
-<!-- ═════════ الصفحة الرئيسية ═════════ -->
+<!-- ══════════════ MAIN PAGE ══════════════ -->
 <div id="main-page">
 
-<!-- ═════════ VIDEO SECTION ═════════ -->
+<!-- ════════ VIDEO SECTION ════════ -->
 <section id="video-section">
   <video id="wedding-video" muted loop playsinline webkit-playsinline preload="auto"></video>
   <button id="sound-btn" onclick="toggleSound()"><span id="sound-icon">🔇</span> تشغيل الصوت</button>
@@ -302,24 +639,24 @@
   </div>
 </section>
 
-<!-- ═════════ التفاصيل ═════════ -->
+<!-- ════════ DETAILS SECTION ════════ -->
 <section id="details">
-  <div class="section-ornament">✦ ✦ ✦</div>
+  <div class="section-ornament">❁ ✦ ❁</div>
   <h2 class="section-title">تفاصيل المناسبة</h2>
 
   <div class="details-card">
     <div class="detail-row">
       <div class="detail-icon">📅</div>
-      <div>
+      <div class="detail-text">
         <div class="detail-label">التاريخ</div>
         <div class="detail-value">يوم الاثنين — ٢٧ / ٧ / ٢٠٢٦</div>
       </div>
     </div>
     <div class="detail-row">
       <div class="detail-icon">🏛️</div>
-      <div>
+      <div class="detail-text">
         <div class="detail-label">المكان</div>
-        <div class="detail-value">قاعة فندق بوليفارد</div>
+        <div class="detail-value">قاعة فندق البوليڤارد</div>
       </div>
     </div>
   </div>
@@ -331,8 +668,9 @@
     <div class="note"><span class="n-icon">🏡</span><span><em>«جنة الأطفال منازلهم»</em> — الحضور مقتصر على البالغين.</span></div>
   </div>
 
+  <!-- ════════ COUNTDOWN ════════ -->
   <div class="countdown-wrap">
-    <div class="countdown-label">باقي على الفرحة</div>
+    <div class="countdown-label">⏳ باقي على الفرحة</div>
     <div class="countdown-grid" id="cd-grid">
       <div class="cd-cell"><span class="cd-num" id="cd-d">—</span><span class="cd-unit">يوم</span></div>
       <span class="cd-sep">:</span>
@@ -343,15 +681,16 @@
       <div class="cd-cell"><span class="cd-num" id="cd-s">—</span><span class="cd-unit">ثانية</span></div>
     </div>
     <div class="countdown-done" id="cd-done" style="display:none">🎉 اليوم يوم الفرح — أهلاً بكم</div>
+    <button class="calendar-btn" type="button" onclick="addToCalendar()">📅 أضِف الموعد إلى تقويمك</button>
   </div>
 </section>
 
-<!-- ═════════ التسجيل ═════════ -->
+<!-- ════════ RSVP SECTION ════════ -->
 <section id="rsvp">
   <div class="rsvp-box">
-    <div class="section-ornament">✦ ✦ ✦</div>
-    <h2 class="section-title">تأكيد الحضور</h2>
-    <p class="rsvp-sub">سجّل اسمك ليصلك رمز الدخول الخاص بك،<br>وستحصل على بطاقة دعوة يمكنك تحميلها والاحتفاظ بها.</p>
+    <div class="section-ornament">❁ ✦ ❁</div>
+    <h2 class="rsvp-title">تأكيد الحضور</h2>
+    <p class="rsvp-subtitle">سجّل اسمك ليصلك رمز الدخول الخاص بك مع بطاقة دعوة قابلة للتحميل</p>
 
     <div id="rsvp-form">
       <div class="form-group">
@@ -362,6 +701,7 @@
         <label for="phone">رقم الجوال</label>
         <input type="tel" id="phone" placeholder="96812345678" dir="ltr" autocomplete="tel">
       </div>
+
       <button class="submit-btn" id="submit-btn" onclick="submitRsvp()">تأكيد الحضور</button>
       <div id="form-msg"></div>
     </div>
@@ -371,18 +711,22 @@
     </div>
 
     <div id="success-card">
-      <div class="success-title" id="sc-name">—</div>
-      <div class="success-sub">تم تأكيد حضورك بنجاح ✅<br>أبرز هذه البطاقة عند بوابة الدخول</div>
+      <div class="success-icon">🎉</div>
+      <div class="success-title">تم تأكيد حضورك بنجاح</div>
+      <div class="success-sub">أبرز هذه البطاقة عند بوابة الدخول</div>
+      <div class="qr-welcome" id="sc-name">—</div>
+      <div class="qr-code-label">بطاقة الدعوة الخاصة بك</div>
       <div id="card-preview"></div>
       <div class="code-pill" id="sc-code">—</div><br>
-      <button class="dl-btn" id="dl-btn">⬇️ تحميل بطاقة الدعوة</button>
+      <button class="dl-btn" id="dl-btn" type="button">⬇️ تحميل بطاقة الدعوة</button>
+      <div class="success-summary" id="success-summary" style="display:none"></div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="f-line">حضوركم يزيد حفلنا بهجة وسروراً</div>
-  محمود & اسراء · ٢٧ يوليو ٢٠٢٦ · قاعة فندق بوليفارد
+  حضوركم يزيد حفلنا بهجة وسروراً<br>
+  <span>محمود & إسراء</span> · ٢٧ يوليو ٢٠٢٦ · قاعة فندق البوليڤارد
 </footer>
 
 </div><!-- /main-page -->
@@ -398,15 +742,23 @@ const VIDEO_URL = 'video.mp4';
 // موعد الحفل للعد التنازلي (عدّل الساعة إذا لزم)
 const EVENT_DATE = new Date('2026-07-27T20:00:00+04:00');
 
-/* إعدادات الإطار المزخرف — عدّل الأرقام لتطابق تصميمك
-   ارفع ملف الإطار باسم frame.png في نفس مجلد GitHub Pages   */
+/* إعدادات الإطار المزخرف — عدّل الأرقام لتطابق تصميم frame.png الذي سترفعه في GitHub */
 const FRAME = {
   url:    'frame.png',
   width:  1080,          // عرض صورة الإطار بالبكسل
   height: 1350,          // ارتفاعها
   qr:     { x: 290, y: 400, size: 500, pad: 26 }, // موضع مربع QR داخل الإطار
-  name:   { y: 1030, size: 54, color: '#12332B' },// موضع اسم الضيف
-  code:   { y: 1110, size: 42, color: '#C6A24A' } // موضع الكود
+  name:   { y: 1030, size: 54, color: '#6E1423' },// موضع اسم الضيف
+  code:   { y: 1110, size: 42, color: '#C7431F' } // موضع الكود
+};
+
+/* بيانات الحدث لأزرار التقويم (أندرويد + آيفون) */
+const EVENT_INFO = {
+  title:    'حفل زفاف محمود & إسراء 💍',
+  location: 'قاعة فندق البوليڤارد',
+  details:  'يشرفنا حضوركم. موقع القاعة: https://maps.app.goo.gl/FwVNaGf314WSeVz28',
+  startUTC: '20260727T160000Z',  // 8:00 مساءً بتوقيت مسقط (+04)
+  endUTC:   '20260727T190000Z'   // 11:00 مساءً
 };
 
 /* ════════════ JSONP مع 3 محاولات ════════════ */
@@ -432,146 +784,9 @@ async function callScript(params, attempts) {
   throw lastErr;
 }
 
-/* ════════════ حالة التسجيل ════════════ */
-async function checkStatus() {
-  try {
-    const res = await callScript({ action:'status' }, 2);
-    if (res && res.registrationOpen === false) {
-      document.getElementById('rsvp-form').style.display = 'none';
-      document.getElementById('closed-msg').style.display = 'block';
-    }
-  } catch(e) { /* عند تعذّر الاتصال نُبقي النموذج ظاهراً */ }
-}
-
-/* ════════════ التسجيل ════════════ */
-async function submitRsvp() {
-  const name  = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const msgEl = document.getElementById('form-msg');
-  const btn   = document.getElementById('submit-btn');
-  msgEl.innerHTML = '';
-  if (!name) { msgEl.innerHTML = '<div class="msg msg-error">⚠️ الرجاء إدخال الاسم الكامل</div>'; return; }
-
-  btn.disabled = true; btn.textContent = 'جاري التسجيل...';
-  try {
-    const res = await callScript({ action:'rsvp', name:name, phone:phone });
-    if (res.status === 'success' || res.status === 'exists') {
-      showSuccess(res.name || name, res.code);
-      if (res.status === 'exists') {
-        msgEl.innerHTML = '<div class="msg msg-closed">ℹ️ هذا الرقم مسجّل مسبقاً — هذه بطاقتك.</div>';
-      }
-    } else if (res.status === 'closed') {
-      document.getElementById('rsvp-form').style.display = 'none';
-      document.getElementById('closed-msg').style.display = 'block';
-    } else {
-      msgEl.innerHTML = '<div class="msg msg-error">⚠️ ' + (res.message || 'حدث خطأ، حاول مجدداً') + '</div>';
-    }
-  } catch(e) {
-    msgEl.innerHTML = '<div class="msg msg-error">⚠️ تعذّر الاتصال بالخادم — تأكد من الإنترنت وحاول مرة أخرى</div>';
-  }
-  btn.disabled = false; btn.textContent = 'تأكيد الحضور';
-}
-
-function showSuccess(name, code) {
-  document.getElementById('sc-name').textContent = name;
-  document.getElementById('sc-code').textContent = code;
-  buildCard(name, code);
-  const card = document.getElementById('success-card');
-  card.classList.add('show');
-  card.scrollIntoView({ behavior:'smooth', block:'center' });
-}
-
-/* ════════════ توليد QR وتركيبه داخل الإطار ════════════ */
-function makeQrCanvas(text, size) {
-  const holder = document.createElement('div');
-  holder.style.cssText = 'position:fixed;left:-9999px;top:0';
-  document.body.appendChild(holder);
-  new QRCode(holder, { text:text, width:size, height:size,
-    colorDark:'#12332B', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H });
-  const cv = holder.querySelector('canvas');
-  const out = document.createElement('canvas');
-  out.width = size; out.height = size;
-  out.getContext('2d').drawImage(cv, 0, 0, size, size);
-  holder.remove();
-  return out;
-}
-
-async function buildCard(name, code) {
-  const qrCv = makeQrCanvas('WEDDING:' + code + ':' + name, FRAME.qr.size);
-  const canvas = document.createElement('canvas');
-  canvas.width = FRAME.width; canvas.height = FRAME.height;
-  const ctx = canvas.getContext('2d');
-
-  try { await document.fonts.ready; } catch(e){}
-
-  const frameImg = new Image();
-  const drawTexts = () => {
-    ctx.textAlign = 'center';
-    ctx.fillStyle = FRAME.name.color;
-    ctx.font = '700 ' + FRAME.name.size + 'px "Aref Ruqaa", "Amiri", serif';
-    ctx.fillText(name, FRAME.width/2, FRAME.name.y);
-    ctx.fillStyle = FRAME.code.color;
-    ctx.font = '700 ' + FRAME.code.size + 'px monospace';
-    ctx.fillText(code, FRAME.width/2, FRAME.code.y);
-  };
-  const drawQr = () => {
-    const q = FRAME.qr, p = q.pad;
-    // خلفية بيضاء خلف الرمز لضمان قراءته فوق أي زخرفة
-    roundRect(ctx, q.x - p, q.y - p, q.size + p*2, q.size + p*2, 20);
-    ctx.fillStyle = '#ffffff'; ctx.fill();
-    ctx.drawImage(qrCv, q.x, q.y, q.size, q.size);
-  };
-
-  frameImg.onload = () => {
-    ctx.drawImage(frameImg, 0, 0, FRAME.width, FRAME.height);
-    drawQr(); drawTexts();
-    finishCard(canvas, name);
-  };
-  frameImg.onerror = () => {
-    // إطار احتياطي أنيق إذا لم يُرفع frame.png بعد
-    ctx.fillStyle = '#F7F3E8'; ctx.fillRect(0, 0, FRAME.width, FRAME.height);
-    ctx.strokeStyle = '#C6A24A'; ctx.lineWidth = 10;
-    ctx.strokeRect(40, 40, FRAME.width-80, FRAME.height-80);
-    ctx.lineWidth = 2;
-    ctx.strokeRect(60, 60, FRAME.width-120, FRAME.height-120);
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#12332B';
-    ctx.font = '700 64px "Aref Ruqaa", serif';
-    ctx.fillText('حفل زفاف محمود & اسراء', FRAME.width/2, 200);
-    ctx.fillStyle = '#8A8272';
-    ctx.font = '32px "Amiri", serif';
-    ctx.fillText('الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق بوليفارد', FRAME.width/2, 270);
-    drawQr(); drawTexts();
-    finishCard(canvas, name);
-  };
-  frameImg.src = FRAME.url + '?v=' + Date.now();
-}
-
-function finishCard(canvas, name) {
-  const prev = document.getElementById('card-preview');
-  prev.innerHTML = ''; prev.appendChild(canvas);
-  document.getElementById('dl-btn').onclick = () => {
-    const a = document.createElement('a');
-    a.href = canvas.toDataURL('image/png');
-    a.download = 'دعوة-زفاف-' + name.replace(/\s+/g,'-') + '.png';
-    a.click();
-  };
-}
-
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x+r, y);
-  ctx.arcTo(x+w, y, x+w, y+h, r);
-  ctx.arcTo(x+w, y+h, x, y+h, r);
-  ctx.arcTo(x, y+h, x, y, r);
-  ctx.arcTo(x, y, x+w, y, r);
-  ctx.closePath();
-}
-
 /* ════════════ فتح الظرف ════════════ */
 function openInvitation(e) {
   const btn = document.getElementById('seal-btn');
-  // تأثير الموجة عند الضغط على الختم
   const r = document.createElement('span');
   r.className = 'ripple';
   const rect = btn.getBoundingClientRect();
@@ -600,6 +815,179 @@ function toggleSound() {
   else { b.innerHTML = '<span id="sound-icon">🔇</span> تشغيل الصوت'; }
 }
 
+/* ════════════ حالة التسجيل ════════════ */
+async function checkStatus() {
+  try {
+    const res = await callScript({ action:'status' }, 2);
+    if (res && res.registrationOpen === false) {
+      document.getElementById('rsvp-form').style.display = 'none';
+      document.getElementById('closed-msg').style.display = 'block';
+    }
+  } catch(e) { /* عند تعذّر الاتصال نُبقي النموذج ظاهراً */ }
+}
+
+/* ════════════ التسجيل ════════════ */
+async function submitRsvp() {
+  const name  = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const msgEl = document.getElementById('form-msg');
+  const btn   = document.getElementById('submit-btn');
+  msgEl.innerHTML = '';
+  if (!name) { msgEl.innerHTML = '<div class="msg msg-error">⚠️ الرجاء إدخال الاسم الكامل</div>'; return; }
+
+  btn.disabled = true; btn.textContent = 'جاري التسجيل...';
+  try {
+    const res = await callScript({ action:'rsvp', name:name, phone:phone });
+    if (res.status === 'success' || res.status === 'exists') {
+      showSuccess(res.name || name, res.code);
+      if (res.status === 'exists') {
+        msgEl.innerHTML = '<div class="msg msg-success">ℹ️ هذا الرقم مسجّل مسبقاً — هذه بطاقتك.</div>';
+      }
+    } else if (res.status === 'closed') {
+      document.getElementById('rsvp-form').style.display = 'none';
+      document.getElementById('closed-msg').style.display = 'block';
+    } else {
+      msgEl.innerHTML = '<div class="msg msg-error">⚠️ ' + (res.message || 'حدث خطأ، حاول مجدداً') + '</div>';
+    }
+  } catch(e) {
+    msgEl.innerHTML = '<div class="msg msg-error">⚠️ تعذّر الاتصال بالخادم — تأكد من الإنترنت وحاول مرة أخرى</div>';
+  }
+  btn.disabled = false; btn.textContent = 'تأكيد الحضور';
+}
+
+function showSuccess(name, code) {
+  document.getElementById('sc-name').textContent = 'أهلاً ' + name;
+  document.getElementById('sc-code').textContent = code;
+  const sum = document.getElementById('success-summary');
+  sum.innerHTML = '📅 الاثنين ٢٧ / ٧ / ٢٠٢٦<br>🏛️ قاعة فندق البوليڤارد'; sum.style.display = 'block';
+  buildCard(name, code);
+  const card = document.getElementById('success-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+/* ════════════ توليد QR وتركيبه داخل الإطار ════════════ */
+function makeQrCanvas(text, size) {
+  const holder = document.createElement('div');
+  holder.style.cssText = 'position:fixed;left:-9999px;top:0';
+  document.body.appendChild(holder);
+  new QRCode(holder, { text:text, width:size, height:size,
+    colorDark:'#6E1423', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H });
+  const cv = holder.querySelector('canvas');
+  const out = document.createElement('canvas');
+  out.width = size; out.height = size;
+  out.getContext('2d').drawImage(cv, 0, 0, size, size);
+  holder.remove();
+  return out;
+}
+
+async function buildCard(name, code) {
+  const qrCv = makeQrCanvas('WEDDING:' + code + ':' + name, FRAME.qr.size);
+  const canvas = document.createElement('canvas');
+  canvas.width = FRAME.width; canvas.height = FRAME.height;
+  const ctx = canvas.getContext('2d');
+
+  try { await document.fonts.ready; } catch(e){}
+
+  const frameImg = new Image();
+  const drawTexts = () => {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = FRAME.name.color;
+    ctx.font = '700 ' + FRAME.name.size + 'px "Aref Ruqaa", "Amiri", serif';
+    ctx.fillText(name, FRAME.width/2, FRAME.name.y);
+    ctx.fillStyle = FRAME.code.color;
+    ctx.font = '700 ' + FRAME.code.size + 'px monospace';
+    ctx.fillText(code, FRAME.width/2, FRAME.code.y);
+  };
+  const drawQr = () => {
+    const q = FRAME.qr, p = q.pad;
+    roundRect(ctx, q.x - p, q.y - p, q.size + p*2, q.size + p*2, 20);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+    ctx.drawImage(qrCv, q.x, q.y, q.size, q.size);
+  };
+
+  frameImg.onload = () => {
+    ctx.drawImage(frameImg, 0, 0, FRAME.width, FRAME.height);
+    drawQr(); drawTexts();
+    finishCard(canvas, name);
+  };
+  frameImg.onerror = () => {
+    // إطار احتياطي أنيق إذا لم يُرفع frame.png بعد
+    ctx.fillStyle = '#FAF6FD'; ctx.fillRect(0, 0, FRAME.width, FRAME.height);
+    ctx.strokeStyle = '#C7431F'; ctx.lineWidth = 10;
+    ctx.strokeRect(40, 40, FRAME.width-80, FRAME.height-80);
+    ctx.lineWidth = 2;
+    ctx.strokeRect(60, 60, FRAME.width-120, FRAME.height-120);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#6E1423';
+    ctx.font = '700 60px "Aref Ruqaa", serif';
+    ctx.fillText('حفل زفاف محمود & إسراء', FRAME.width/2, 200);
+    ctx.fillStyle = '#8E7A92';
+    ctx.font = '32px "Amiri", serif';
+    ctx.fillText('الاثنين ٢٧ يوليو ٢٠٢٦ — قاعة فندق البوليڤارد', FRAME.width/2, 270);
+    drawQr(); drawTexts();
+    finishCard(canvas, name);
+  };
+  frameImg.src = FRAME.url + '?v=' + Date.now();
+}
+
+function finishCard(canvas, name) {
+  const prev = document.getElementById('card-preview');
+  prev.innerHTML = ''; prev.appendChild(canvas);
+  document.getElementById('dl-btn').onclick = () => {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'دعوة-زفاف-' + name.replace(/\s+/g,'-') + '.png';
+    a.click();
+  };
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y, x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x, y+h, r);
+  ctx.arcTo(x, y+h, x, y, r);
+  ctx.arcTo(x, y, x+w, y, r);
+  ctx.closePath();
+}
+
+/* ════════════ إضافة للتقويم (أندرويد + آيفون) ════════════ */
+function gcalUrl() {
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text='     + encodeURIComponent(EVENT_INFO.title)
+    + '&dates='    + EVENT_INFO.startUTC + '/' + EVENT_INFO.endUTC
+    + '&location=' + encodeURIComponent(EVENT_INFO.location)
+    + '&details='  + encodeURIComponent(EVENT_INFO.details);
+}
+function downloadICS() {
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//AR',
+    'BEGIN:VEVENT',
+    'UID:' + Date.now() + '@wedding-invite',
+    'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z',
+    'DTSTART:' + EVENT_INFO.startUTC,
+    'DTEND:'   + EVENT_INFO.endUTC,
+    'SUMMARY:' + EVENT_INFO.title,
+    'LOCATION:' + EVENT_INFO.location,
+    'DESCRIPTION:' + EVENT_INFO.details.replace(/,/g,'\\,'),
+    'BEGIN:VALARM','TRIGGER:-PT3H','ACTION:DISPLAY','DESCRIPTION:تذكير بحفل الزفاف','END:VALARM',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type:'text/calendar;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'wedding-mahmoud-israa.ics';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+function addToCalendar() {
+  // آيفون وماك → ملف .ics يفتح في تقويم آبل | أندرويد وغيره → تقويم Google
+  const isApple = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
+  if (isApple) downloadICS();
+  else window.open(gcalUrl(), '_blank');
+}
+
 /* ════════════ العد التنازلي ════════════ */
 function tick() {
   const diff = EVENT_DATE - new Date();
@@ -624,9 +1012,9 @@ document.body.classList.add('locked'); // منع التمرير حتى فتح ا
 
 function hideLoading(){ document.getElementById('loading').classList.add('hidden'); }
 window.addEventListener('load', () => { hideLoading(); checkStatus(); });
-setTimeout(hideLoading, 6000); // مهلة قصوى: لا تعلق شاشة التحميل حتى لو تأخرت الملفات
+setTimeout(hideLoading, 6000); // مهلة قصوى لشاشة التحميل
 
-// إذا لم تُرفع صورة الظرف بعد → يظهر ظرف احتياطي أنيق بنفس الهوية
+// إذا لم تُرفع صورة الظرف بعد → يظهر ظرف احتياطي بنفس الهوية
 const envImg = document.getElementById('envelope-img');
 envImg.draggable = false;
 envImg.addEventListener('error', () => {
@@ -638,12 +1026,12 @@ envImg.addEventListener('error', () => {
 // تحميل الفيديو — إذا لم يوجد الملف يختفي القسم وتبدأ الدعوة من التفاصيل
 const wv = document.getElementById('wedding-video');
 wv.addEventListener('error', () => {
-  console.warn('⚠️ لم يُعثر على الفيديو: ' + VIDEO_URL + ' — تأكد من الاسم وحالة الأحرف');
+  console.warn('⚠️ لم يُعثر على الفيديو: ' + VIDEO_URL);
   document.getElementById('video-section').style.display = 'none';
 });
 wv.src = VIDEO_URL;
 
-// إرسال النموذج بزر Enter من أي حقل
+// إرسال النموذج بزر Enter
 document.getElementById('name').addEventListener('keydown', e => { if (e.key === 'Enter') submitRsvp(); });
 document.getElementById('phone').addEventListener('keydown', e => { if (e.key === 'Enter') submitRsvp(); });
 </script>
