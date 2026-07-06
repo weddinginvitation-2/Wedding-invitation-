@@ -48,9 +48,10 @@
   .envelope-fallback .ef-sub { font-size:13px; color:var(--muted); margin-top:10px; }
 
   /* زر الختم المخفي فوق الظرف */
+  /* موضع الختم مقاس بدقة على صورة envelope.jpg (مركزه 55% من الارتفاع، عرضه 28%) */
   #seal-btn {
-    position:absolute; top:48%; left:50%; transform:translate(-50%,-50%);
-    width:22%; aspect-ratio:1; border-radius:50%;
+    position:absolute; top:55%; left:50%; transform:translate(-50%,-50%);
+    width:28%; aspect-ratio:1; border-radius:50%;
     background:transparent; border:none; cursor:pointer; z-index:10; outline:none;
   }
   #seal-btn::before {
