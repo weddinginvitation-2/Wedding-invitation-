@@ -268,10 +268,11 @@ const ADMIN_PASSWORD = 'wedding2026'; // غيّر كلمة المرور هنا (
 // إعدادات الإطار المزخرف — نفس القيم في index.html
 const FRAME = {
   url:    'frame.png',
-  width:  1080, height: 1350,
-  qr:     { x: 290, y: 400, size: 500, pad: 26 },
-  name:   { y: 1030, size: 54, color: '#5E1520' },
-  code:   { y: 1110, size: 42, color: '#D4572B' }
+  width:  1240,          // أبعاد صورة الإطار المرفوعة (مقاسة بدقة)
+  height: 1748,
+  qr:     { x: 508, y: 664, size: 262, pad: 12 }, // داخل مربع الإطار (375→903 , 636→1032)
+  name:   { y: 972, size: 44, color: '#5A6647' }, // اسم الضيف داخل المربع تحت الرمز
+  code:   { y: 1016, size: 32, color: '#7A8760' } // الكود أسفل الاسم
 };
 
 let allGuests = [];
@@ -414,7 +415,7 @@ function makeQrCanvas(text, size) {
   holder.style.cssText = 'position:fixed;left:-9999px;top:0';
   document.body.appendChild(holder);
   new QRCode(holder, { text:text, width:size, height:size,
-    colorDark:'#5E1520', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H });
+    colorDark:'#3F4A32', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.H });
   const cv = holder.querySelector('canvas');
   const out = document.createElement('canvas');
   out.width = size; out.height = size;
